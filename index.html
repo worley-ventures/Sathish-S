@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+    <script src="eventhandling.js"></script>
+
+    <style>
+      #log {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-height: 40%;
+        background: rgba(0,0,0,0.7);
+        color: #0f0;
+        font-family: monospace;
+        font-size: 12px;
+        overflow-y: auto;
+        z-index: 9999;
+        padding: 5px;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div id="log">[Log Panel]</div>
+
+    <a-scene mindar-image="imageTargetSrc: ./Card.mind; filterMinCF:0.01; filterBeta: 100" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false",>
+      <!-- Assets Preloading -->
+      <a-assets>        
+        <a-asset-item id="logoModel" src="./Model/WorleyLogo.glb"></a-asset-item>
+        <img id="callicon" src="./Icons/Phone.png"></img>
+        <img id="mailicon" src="./Icons/Mail.png"></img>
+        <img id="siteicon" src="./Icons/Site.png"></img>
+        <img id="pinicon" src="./Icons/Location.png"></img>
+      </a-assets>
+
+      <!-- Camera -->
+      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+
+      <!-- AR Entity --> 
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-light type="ambient" color="#fff" intensity="5"></a-light>
+        <a-gltf-model id="logo" rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#logoModel"></a-gltf-model>
+        <a-image id="callBtn" src="#callicon" position="0.8 0.45 0" width="0.2" height="0.2" class="clickable" animation__pop="property: scale; from: 0 0 0; to: 0.2 0.2 0.2; dur: 400; easing: easeOutElastic; startEvents: pop"></a-image>
+        <a-image id="mailBtn" src="#mailicon" position="0.8 0.15 0" width="0.2" height="0.2" class="clickable" animation__pop="property: scale; from: 0 0 0; to: 0.2 0.2 0.2; dur: 400; easing: easeOutElastic; startEvents: pop"></a-image>
+        <a-image id="siteBtn" src="#siteicon" position="0.8 -0.15 0" width="0.2" height="0.2" class="clickable" animation__pop="property: scale; from: 0 0 0; to: 0.2 0.2 0.2; dur: 400; easing: easeOutElastic; startEvents: pop"></a-image>
+        <a-image id="pinBtn" src="#pinicon" position="0.8 -0.45 0" width="0.2" height="0.2" class="clickable" animation__pop="property: scale; from: 0 0 0; to: 0.2 0.2 0.2; dur: 400; easing: easeOutElastic; startEvents: pop"></a-image>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
